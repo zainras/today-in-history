@@ -1,0 +1,7 @@
+name = "worker-today-in-history"
+main = "src/index.ts"
+compatibility_date = "2022-06-03"
+
+[vars]
+TWITTER_BEARER_TOKEN=""
+PAGES_URL=""
