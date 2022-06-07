@@ -5,17 +5,7 @@ import useSWR from 'swr';
 
 import { Feed, FeedItem } from '@/components/Feed';
 import { Loading } from '@/components/Loading';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-export interface Props {
-  histories: {
-    selected: Array<FeedItem>;
-    births: Array<FeedItem>;
-    deaths: Array<FeedItem>;
-    holiday: Array<FeedItem>;
-  };
-}
+import fetcher from '@/utils/Fetcher';
 
 export default function EventType() {
   const router = useRouter();
@@ -33,11 +23,16 @@ export default function EventType() {
 
   if (!data) return <Loading />;
 
-  let histories = data[event].slice(0, 15);
-  histories = histories.filter(
-    (feed: FeedItem) => feed.pages[0] && feed.pages[0].originalimage
-  );
-  // }
+  let histories = [];
+  try {
+    // @ts-ignore // TODO: fix this type error
+    histories = data[event].slice(0, 15);
+    histories = histories.filter(
+      (feed: FeedItem) => feed.pages[0] && feed.pages[0].originalimage
+    );
+  } catch (error) {
+    console.log(error);
+  }
   return (
     <>
       <div className="antialiased w-full text-gray-700 bg-slate-900">
@@ -81,7 +76,7 @@ export default function EventType() {
               lazyLoad: true,
             }}
           >
-            {histories.map((feed, idx) => (
+            {histories.map((feed: FeedItem, idx: number) => (
               <SplideSlide key={idx}>
                 <Feed {...feed} />
               </SplideSlide>

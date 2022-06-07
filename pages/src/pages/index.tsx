@@ -4,14 +4,16 @@ import Footer from '@/components/Footer';
 import { Loading } from '@/components/Loading';
 import { Stories } from '@/components/Stories';
 import { TweetCard } from '@/components/TweetCard';
+import fetcher from '@/utils/Fetcher';
 
 export default function Index() {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data } = useSWR(process.env.WORKER_URL, fetcher);
 
   if (!data) return <Loading />;
 
+  // @ts-ignore // TODO: fix this type error
   const tweetData = data.data;
+  // @ts-ignore // TODO: fix this type error
   const { users } = data.includes;
   const tweets = tweetData.flatMap(
     (tweet: { author_id: string; id: any; text: any; created_at: any }) => {
