@@ -5,6 +5,7 @@ import useSWR from 'swr';
 
 import { Feed, FeedItem } from '@/components/Feed';
 import { Loading } from '@/components/Loading';
+import { events } from '@/components/Stories';
 import fetcher from '@/utils/Fetcher';
 
 export default function EventType() {
@@ -33,6 +34,9 @@ export default function EventType() {
   } catch (error) {
     console.log(error);
   }
+
+  const cEvent = events.find((e: any) => e.schema === event);
+
   return (
     <>
       <div className="antialiased w-full text-gray-700 bg-slate-900">
@@ -61,8 +65,10 @@ export default function EventType() {
               </div>
             </div>
             <div className="absolute z-20 right-0 text-right">
-              <div className="bg-red-400 p-2 rounded-bl-lg">
-                <span className="text-xs text-slate-100">TODAY IN HISTORY</span>{' '}
+              <div className={`${cEvent?.style} p-2 rounded-bl-lg`}>
+                <span className="text-xs text-slate-100">
+                  {cEvent?.feedTitle}
+                </span>{' '}
                 <span>|</span>{' '}
                 <span className="text-xs text-slate-100">{today}</span>
               </div>

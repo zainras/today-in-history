@@ -45,10 +45,16 @@ export default function Index() {
         <div className="mt-8">
           <Stories />
         </div>
-        <div className="relative mt-8 border-t border-slate-200">
-          {tweets.map((tweet: any, index: any, i: any) => (
-            <TweetCard key={tweet.id} index={index} tes={i} {...tweet} />
-          ))}
+        <div className="relative mt-8 ">
+          <div className="flex flex-row py-3 pl-3 bg-slate-100">
+            <img src="/icons/twitter.svg" alt="" width={30} />
+            Twitter timeline #TodayInHistory
+          </div>
+          <div className="border-t border-slate-200">
+            {tweets.map((tweet: any, index: any, i: any) => (
+              <TweetCard key={tweet.id} index={index} tes={i} {...tweet} />
+            ))}
+          </div>
         </div>
         <Footer />
       </div>
