@@ -43,7 +43,7 @@ const handleRequest = async (request: Request) => {
 
   const response = await fetch( `https://api.twitter.com/2/tweets/search/recent?` + query, {
     cf: {
-      cacheTtl: 60,// Always cache this fetch for a max of 60 seconds before revalidating the resource
+      cacheTtl: 15 * 60,// Always cache this fetch for a max of 15 minutes before revalidating the resource
       cacheEverything: true,
     },
     headers: {
